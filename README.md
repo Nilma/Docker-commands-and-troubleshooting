@@ -32,6 +32,24 @@ It covers:
 -   Docker cleanup commands
 -   Quick command cheat sheet
 
+
+**[Docker Troubleshooting Guide For Windows
+Guide](Docker-Troubleshooting-Guide-Windows.md)**
+
+It covers:
+
+-   Troubleshooting the Windows Hypervisor
+-   Enabling the required Windows virtualization features
+-   Configuring Hyper-V, Virtual Machine Platform, and Windows Hypervisor Platform
+-   Configuring Windows Subsystem for Linux
+-   Switching Docker Desktop to Docker VMM
+-   Creating the docker-users group
+-   Adding your Windows user to docker-users
+-   Checking docker-users group membership
+-   Restarting Windows after configuration changes
+-   A quick Docker troubleshooting checklist
+
+
 ## Quick Start
 
 Check Docker:
@@ -139,7 +157,7 @@ A suggested order is:
 
 ## Copyright
 
-Copyright © 2026 Nilma Abbas.
+Copyright © 2026 Nilma Abbas & Mark Svendstrup.
 
 This material is provided for educational purposes.  
 You may use and adapt it for teaching and learning with appropriate attribution.
