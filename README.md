@@ -40,10 +40,10 @@ It covers:
 
 -   Troubleshooting the Windows Hypervisor
 -   Enabling the required Windows virtualization features
--   Configuring Hyper-V, Virtual Machine Platform, and Windows Hypervisor Platform
--   Configuring Windows Subsystem for Linux
--   Switching Docker Desktop to Docker VMM
--   Creating the docker-users group
+-   Configuring `Hyper-V`, `Virtual Machine Platform`, and `Windows Hypervisor Platform`
+-   Configuring `Windows Subsystem for Linux`
+-   Switching Docker Desktop to `Docker VMM`
+-   Creating the `docker-users` group
 -   Adding your Windows user to docker-users
 -   Checking docker-users group membership
 -   Restarting Windows after configuration changes
