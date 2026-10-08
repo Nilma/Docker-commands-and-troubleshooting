@@ -1,10 +1,86 @@
 # Docker Troubleshooting Guide For Windows
 
-> This guide helps troubleshoot Docker Desktop problems on Windows related to the **Hypervisor**, **Windows virtualization features**, and the **`docker-users`** group.
+> This guide helps troubleshoot Docker Desktop problems on Windows related to **hardware virtualization**, the **Hypervisor**, **Windows virtualization features**, and the **`docker-users`** group.
 
 ---
 
-## 1. Force the Hypervisor to Start at Boot
+## 1. Check Virtualization in BIOS/UEFI
+
+Docker Desktop relies on hardware virtualization. If virtualization is disabled in your computer's BIOS/UEFI settings, Docker may not be able to start correctly.
+
+### Step 1: Check Whether Virtualization Is Already Enabled
+
+Before changing anything in BIOS/UEFI, you can check the current status in Windows.
+
+Open **Task Manager** with:
+
+```text
+Ctrl + Shift + Esc
+```
+
+Select:
+
+**Performance → CPU**
+
+Look for:
+
+> **Virtualization: Enabled**
+
+If it already says **Enabled**, you can continue to the next section.
+
+If it says **Disabled**, virtualization needs to be enabled in BIOS/UEFI.
+
+### Step 2: Enter BIOS/UEFI
+
+Restart your computer and enter the BIOS/UEFI setup.
+
+The key used to enter BIOS/UEFI depends on the computer manufacturer. Common keys include:
+
+- **Delete**
+- **F1**
+- **F2**
+- **F10**
+- **F12**
+- **Esc**
+
+You may need to press the key repeatedly immediately after turning on the computer.
+
+> **Tip:** If you are unsure which key to use, check your computer or motherboard manufacturer's instructions.
+
+### Step 3: Enable CPU Virtualization
+
+Look through the BIOS/UEFI settings for a virtualization option.
+
+The name depends on your CPU.
+
+**Intel systems** may use names such as:
+
+- **Intel Virtualization Technology**
+- **Intel VT-x**
+- **Virtualization Technology**
+
+**AMD systems** may use names such as:
+
+- **SVM Mode**
+- **AMD-V**
+
+Set the virtualization option to:
+
+> **Enabled**
+
+### Step 4: Save and Restart
+
+Save your BIOS/UEFI changes and restart the computer.
+
+Once Windows has started, open **Task Manager → Performance → CPU** again and check that:
+
+> **Virtualization: Enabled**
+
+You can then continue with the next section.
+
+---
+
+## 2. Force the Hypervisor to Start at Boot
 
 If Docker Desktop reports that the **Hypervisor launch type may be disabled**, Windows may not be configured to start the Hypervisor automatically.
 
@@ -28,7 +104,7 @@ Restart your computer after running the command.
 
 ---
 
-## 2. Enable the Required Windows Features
+## 3. Enable the Required Windows Features
 
 Docker Desktop requires several Windows virtualization features to be enabled.
 
@@ -73,7 +149,7 @@ Then restart your computer.
 
 ---
 
-## 3. Create the `docker-users` Group
+## 4. Create the `docker-users` Group
 
 Docker Desktop may require your Windows account to belong to the **`docker-users`** group.
 
@@ -113,7 +189,7 @@ net localgroup docker-users Mark /add
 
 ---
 
-## 4. Check the `docker-users` Group
+## 5. Check the `docker-users` Group
 
 You can check which Windows accounts are members of the `docker-users` group using PowerShell.
 
@@ -127,14 +203,20 @@ Look through the output and check whether your Windows user is listed.
 
 ---
 
-## 5. Restart After Making Changes
+## 6. Restart After Making Changes
 
-After changing Windows virtualization settings or adding your account to the `docker-users` group, restart Windows before testing Docker Desktop again.
+After changing BIOS/UEFI settings, Windows virtualization settings, or adding your account to the `docker-users` group, restart Windows before testing Docker Desktop again.
 
 A useful troubleshooting sequence is:
 
 ```text
-Change Windows settings
+Check BIOS/UEFI virtualization
+        ↓
+Enable Windows virtualization features
+        ↓
+Configure the Hypervisor
+        ↓
+Configure docker-users
         ↓
 Restart Windows
         ↓
@@ -145,10 +227,11 @@ Test Docker
 
 ---
 
-## 6. Quick Troubleshooting Checklist
+## 7. Quick Troubleshooting Checklist
 
 If Docker Desktop is not starting, work through these checks in order:
 
+- [ ] Hardware virtualization is enabled in BIOS/UEFI
 - [ ] Hypervisor is configured to start automatically
 - [ ] Windows has been restarted
 - [ ] **Hyper-V** is enabled
